@@ -9,7 +9,7 @@ export function nextHitDamage(streak) {
 
 function fighter(id, x, facing) {
   return { id, x, facing, hp: C.maxHealth, phase: 'idle', phaseTime: 0,
-    cooldown: 0, attackVisual: 0, hitFlash: 0, moving: false,
+    cooldown: 0, attackVisual: 0, hitFlash: 0, moving: false, walkDistance: 0,
     dodgeRemaining: 0, dodgeCooldown: 0, dodgeDirection: 0 };
 }
 
@@ -20,6 +20,12 @@ export function createGame(status = 'title') {
     player: fighter('player', C.playerStart, 1),
     cpu: fighter('cpu', C.cpuStart, -1),
   };
+}
+
+export function pauseGame(game) {
+  if (game.status !== 'playing') return;
+  game.status = 'paused';
+  game.attackBuffer = game.dodgeBuffer = 0;
 }
 
 function tickVisuals(fighter, dt) {
@@ -41,6 +47,7 @@ export function updateGame(game, dt, input = {}) {
   }
   game.time += dt;
   const { player, cpu } = game;
+  const playerX = player.x, cpuX = cpu.x;
   tickVisuals(player, dt);
   tickVisuals(cpu, dt);
 
@@ -65,6 +72,12 @@ export function updateGame(game, dt, input = {}) {
   player.x = clamp(nextX, C.boundary, C.width - C.boundary);
   const enemyStrike = updateOpponent(cpu, player, dt);
   cpu.x = clamp(cpu.x, C.boundary, C.width - C.boundary);
+  for (const [actor, oldX] of [[player, playerX], [cpu, cpuX]]) {
+    const distance = Math.abs(actor.x - oldX);
+    actor.moving = distance > 0.001;
+    actor.walkDistance = actor.moving && actor.dodgeRemaining === 0
+      ? actor.walkDistance + distance : 0;
+  }
   player.facing = Math.sign(cpu.x - player.x) || player.facing;
   const hits = enemyStrike ? [enemyStrike] : [];
 

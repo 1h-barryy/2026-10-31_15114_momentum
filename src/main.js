@@ -1,5 +1,5 @@
 import { CONFIG as C } from './config.js';
-import { createGame, updateGame, nextHitDamage } from './engine.js';
+import { createGame, updateGame, nextHitDamage, pauseGame } from './engine.js';
 import { KeyboardInput } from './input.js';
 import { ArenaRenderer } from './render.js';
 import { FightAudio } from './audio.js';
@@ -35,7 +35,7 @@ function startMatch() {
 
 function pause() {
   if (game.status !== 'playing') return;
-  game.status = 'paused'; input.clear(); el('pause-screen').hidden = false;
+  pauseGame(game); input.clear(); el('pause-screen').hidden = false;
   renderHud();
 }
 function resume() {
@@ -112,7 +112,7 @@ function frame(now) {
     if (event.type === 'hit' && event.target === 'cpu' && game.streak >= 2) feedback(`${game.streak} HIT STREAK`);
     if (event.type === 'gameOver') showResult();
   }
-  messageTime = Math.max(0,messageTime-dt);
+  messageTime = Math.max(0,messageTime-(game.status === 'paused' ? 0 : dt));
   if (!messageTime) el('feedback').classList.remove('visible');
   renderer.draw(game,game.status === 'paused' ? 0 : dt); renderHud(); requestAnimationFrame(frame);
 }

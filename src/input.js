@@ -1,18 +1,19 @@
 export class KeyboardInput {
-  constructor(target = window) {
+  constructor(target = window, visibilityTarget = document) {
     this.held = new Set();
     this.attackQueued = false;
     this.dodgeQueued = false;
     target.addEventListener('keydown', event => {
       if (!['KeyA', 'KeyD', 'ArrowLeft', 'ArrowRight', 'KeyJ', 'KeyK'].includes(event.code)) return;
       event.preventDefault();
+      const fresh = !event.repeat && !this.held.has(event.code);
       this.held.add(event.code);
-      if (event.code === 'KeyJ' && !event.repeat) this.attackQueued = true;
-      if (event.code === 'KeyK' && !event.repeat) this.dodgeQueued = true;
+      if (event.code === 'KeyJ' && fresh) this.attackQueued = true;
+      if (event.code === 'KeyK' && fresh) this.dodgeQueued = true;
     });
     target.addEventListener('keyup', event => this.held.delete(event.code));
     target.addEventListener('blur', () => this.clear());
-    document.addEventListener('visibilitychange', () => { if (document.hidden) this.clear(); });
+    visibilityTarget.addEventListener('visibilitychange', () => { if (visibilityTarget.hidden) this.clear(); });
   }
 
   read() {

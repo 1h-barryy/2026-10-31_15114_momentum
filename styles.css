@@ -17,3 +17,21 @@ canvas{display:block;position:absolute;inset:0;width:100%;height:100%;outline:no
 .feedback{position:absolute;left:50%;top:24%;transform:translate(-50%,-4px);font:italic 1.4cqw Georgia,serif;color:#f1d4a3;text-shadow:0 2px 12px #000;letter-spacing:.07em;opacity:0;pointer-events:none;transition:opacity .12s,transform .12s}.feedback.visible{opacity:1;transform:translate(-50%,0)}.feedback.lost{color:#efb8ab}
 @media(max-aspect-ratio:4/5){.utility-controls{gap:1.8cqw}.utility-controls button{font-size:.65cqw}.key-guide{font-size:.65cqw;gap:1cqw}.dodge-button{font-size:.65cqw}.game{width:100vw}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Keep essential labels readable at ordinary laptop viewport sizes. */
+.instructions{font-size:clamp(11px,.95cqw,16px);line-height:1.7;color:#e0d9d6;margin:0 0 1.6cqw}
+.fighter-caption,.round-status small,.round-status>span,.key-note,.load-message{font-size:clamp(10px,.75cqw,14px)}
+.name-row span,.name-row b{font-size:clamp(11px,1cqw,18px)}
+.key-guide,.dodge-button,.utility-controls button,.momentum-status>span,.momentum-status small,.dodge-button>span{font-size:clamp(10px,.72cqw,14px)}
+.momentum-status small b{font-size:clamp(12px,.9cqw,18px)}
+.fight-controls{gap:1cqw;background:linear-gradient(transparent,#050913b3);padding-top:1cqw}
+.key-guide{gap:.8cqw}.utility-controls{gap:.8cqw}
+@container(max-width:1050px){.fight-controls{grid-template-columns:1fr auto;row-gap:1.2cqw}.utility-controls{grid-column:1/-1;justify-content:center}.momentum-status{justify-self:end}}
+
+/* Restrained materials: reserve strong warm contrast for combat warnings. */
+.portrait{filter:saturate(.82) contrast(.94) brightness(.96);border-color:#b5b1ab80;box-shadow:none}
+.health-fill{background:#c7b68f}.cpu-panel .health-fill{background:#aaa2bd}
+.health-track.low .health-fill{background:#d48d7d}
+.streak-pips i.active{background:#cdbb97;box-shadow:none}
+.primary-button{background:#c6b392;box-shadow:none;border-color:#deccac}
+.round-status strong{font-size:3.4cqw;color:#c6bdaf}

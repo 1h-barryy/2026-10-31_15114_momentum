@@ -1,5 +1,23 @@
 # Prompt log
 
+## Rooftop Arena V2 generation — 2026-11-01
+
+The user requested a production 16:9 matte rooftop background with a quiet center, simplified skyline layers and dusty mauve/slate dusk. Used built-in image generation, then a targeted refinement to remove the bright sun disk and foreground drop-off and simplify the floor. Saved the selected PNG as assets/rooftop-arena-v2.png; original retained, activation flag unchanged. Exact executed prompts are in ART_DIRECTION.md (V2 arena provenance). No in-game visual approval is claimed.
+
+## V2 art-production preparation — 2026-11-01
+
+The user requested a Stylized Cinematic 2.5D / Matte Game Illustration production specification, grounded contact-shadow fixes and a safe asset-swap path, explicitly rejecting another broad grade or pretend replacement artwork. Read the four handoff documents, inspected source sheets/arena and renderer/atlas processing. Added the supplemental V2 production note (now consolidated in ART_DIRECTION.md) and an active V2 ART_DIRECTION.md section while preserving historical prompts. Added explicit opt-in asset paths with whole-fighter-bundle fallback and metadata validation; replaced the central solid oval with pose-local soft contacts; removed the redundant sprite filter. No original PNG, combat rule, anchor or HUD redesign was introduced. Source support-point annotations require manual motion validation; no new art or live visual approval is claimed.
+
+## Phase 2 visual QA — 2026-11-01
+
+The user requested four consistent desktop screenshots and a visual assessment before further artwork changes, explicitly allowing a documented capture limitation with manual instructions. The local server returned HTTP 200. Browser-host access was unavailable; native Chrome tab selection failed with missing input geometry and then a user-input conflict. No Momentum gameplay screenshots were obtained. Added the supplemental visual QA note (now consolidated in README.md and ART_DIRECTION.md) with evidence status, inspected renderer processing, source-asset limitations, provisional replacement priorities and a precise four-state manual capture procedure. No rendering, gameplay, grading or source-asset changes were made in this pass; no visual approval was claimed.
+
+## Visual refinement — 2026-11-01
+
+The user requested an art-direction refinement and visual cleanup pass: retain the existing identities and rooftop concept while reducing gloss, detail and competing lighting. The request explicitly called for an actual implementation audit, a practical ART_DIRECTION.md, code-side cleanup and precise replacement-asset guidance.
+
+Implemented a cached, restrained stage grade and floor wash; mild grading of cached fighter poses and HUD portraits; smaller hit bursts/shake; one faint dodge afterimage; flatter HUD materials. Reorganized art guidance ahead of the preserved original prompts, with per-pose requirements, per-asset replacement briefs and integration/review gates. No new images were generated or source PNGs replaced. No screenshot was attached to this request; findings use inspected assets and source, and live visual approval remains pending.
+
 This records the user requests that shaped the game and the implementation. Terminal setup and unrelated messages are omitted. Quoted excerpts are verbatim; commentary below them describes the resulting work rather than inventing additional user prompts.
 
 ## Design
@@ -62,3 +80,36 @@ The source download excludes Git history and hosting identity, so it can be copi
 ### Partner continuation
 
 Append the actual prompts you use and a short account of the changes you accept, reject, or adjust. Do not mark acceptance criteria complete until they have been checked.
+
+## Inherited-build audit — 2026-11-01
+
+Actual user request excerpt:
+
+> Your assignment is to audit the inherited build, fix any gaps, and deliver a polished, playable, stable handoff. Do the work in the codebase; do not stop after giving recommendations or writing a plan.
+
+The request required reading the specification and handoff/art documents, verifying the inherited claims, preserving combat rules and original assets, making targeted functional and visual fixes, adding deterministic regressions, and reporting unverified browser work honestly. No new art was requested or generated.
+
+The clean baseline passed 16 tests using `npm.cmd test` (PowerShell blocked `npm.ps1`). Implemented: cancellation of impact-buffered actions on pause; strict keyboard edges; distance-driven walking that stops at collisions; persistent enemy telegraph/strike poses; grounded idle drawing; four corrected horizontal stance anchors; complete start instructions and larger HUD labels. A small dependency-free Node static launcher was added because Python was absent. Combat balance values, all PNG source art, crop bounds/outlines, and SPEC.md were preserved.
+
+Verification: 23 tests pass, JavaScript syntax checks and HTTP asset/module checks pass, and source sheets were inspected. Browser automation was unavailable; native Computer Use stopped because it could not determine Chrome's current URL confidently. Consequently no successful browser playtest, sound check or viewport sign-off is claimed. README.md now separates tested rules from presentation checks still needed. No commit or push was made.
+
+
+## Visual Refinement 2026-11-01
+
+Prompt:
+
+>The characters and rooftop look too much like AI-generated promotional art. Reduce excessive highlights, glossy materials, background noise, and visual clutter. Keep the same characters, setting, and gameplay. Update the art guidance and make practical renderer changes.
+
+Purpose: The artwork had a lot of detail, but the fighters did not stand out enough from the background.
+
+Result: Codex adjusted the background treatment, reduced some effects, and simplified the HUD. However, some visual problems remained in the original images.
+
+## Art Direction V2 2026-11-01
+
+Prompt:
+
+>Do not repeat broad desaturation, blur, or darkening. Move toward a restrained stylized 2.5D look with matte surfaces, clearer silhouettes, and a calmer rooftop. Improve foot-contact shadows and prepare a reversible V2 asset-loading workflow without changing combat.
+
+Purpose: The first cleanup reduced brightness, but the overall presentation still felt inconsistent.
+
+Result: Codex improved the character contact shadows, prepared V2 asset loading with fallback, and updated the art specifications.

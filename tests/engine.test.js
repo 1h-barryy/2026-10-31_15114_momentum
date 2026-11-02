@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, updateGame, nextHitDamage } from '../src/engine.js';
+import { createGame, updateGame, nextHitDamage, pauseGame } from '../src/engine.js';
 import { CONFIG as C } from '../src/config.js';
 
 function closeMatch() {
@@ -205,4 +205,31 @@ test('paused gameplay ignores movement and attack requests', () => {
   assert.equal(game.player.x, position);
   assert.equal(game.cpu.hp, 100);
   assert.equal(game.time, 0);
+});
+
+test('pause cancels actions buffered during impact freeze before resume', () => {
+  const game = closeMatch();
+  game.hitStop = .045;
+  updateGame(game, .01, {attackPressed:true,dodgePressed:true});
+  assert.ok(game.attackBuffer > 0 && game.dodgeBuffer > 0);
+  pauseGame(game);
+  assert.equal(game.status, 'paused');
+  game.status = 'playing'; advance(game, .08);
+  assert.equal(game.cpu.hp, 100);
+  assert.equal(game.player.dodgeCooldown, 0);
+});
+
+test('blocked and stopped movement returns to guard and resets stride', () => {
+  const game = closeMatch(); game.cpu.phase = 'recovery'; game.cpu.phaseTime = 100;
+  advance(game, .2, {direction:-1});
+  assert.ok(game.player.walkDistance > 0);
+  updateGame(game, .01);
+  assert.equal(game.player.walkDistance, 0);
+  assert.equal(game.player.moving, false);
+  advance(game, 1, {direction:1});
+  assert.equal(game.player.moving, false);
+  assert.equal(game.player.walkDistance, 0);
+  game.player.x = C.boundary;
+  updateGame(game, .01, {direction:-1});
+  assert.equal(game.player.moving, false);
 });
